@@ -42,10 +42,10 @@ To upgrade to *12.0.0* from *11.x*, it should be done reusing the PVC(s) used to
         export REDIS_PASSWORD=$(kubectl get secret --namespace default airflow-redis -o jsonpath="{.data.redis-password}" | base64 --decode)
         export POSTGRESQL_PVC=$(kubectl get pvc -l app.kubernetes.io/instance=airflow,app.kubernetes.io/name=postgresql,role=primary -o jsonpath="{.items[0].metadata.name}")
 
-2. Delete the Airflow worker & PostgreSQL statefulset (notice the option *--cascade=false*) and secrets:
+2. Delete the Airflow worker & PostgreSQL statefulset (notice the option *--cascade=orphan*) and secrets:
 
-        kubectl delete statefulsets.apps --cascade=false airflow-postgresql
-        kubectl delete statefulsets.apps --cascade=false airflow-worker
+        kubectl delete statefulsets.apps --cascade=orphan airflow-postgresql
+        kubectl delete statefulsets.apps --cascade=orphan airflow-worker
         kubectl delete secret postgresql --namespace default
         kubectl delete secret airflow --namespace default
 
@@ -126,10 +126,10 @@ To upgrade to *7.0.0* from *6.x*, it should be done reusing the PVC(s) used to h
         export REDIS_PASSWORD=$(kubectl get secret --namespace default airflow-redis -o jsonpath="{.data.redis-password}" | base64 --decode)
         export POSTGRESQL_PVC=$(kubectl get pvc -l app.kubernetes.io/instance=airflow,app.kubernetes.io/name=postgresql,role=primary -o jsonpath="{.items[0].metadata.name}")
 
-2. Delete the Airflow worker & PostgreSQL statefulset (notice the option *--cascade=false*):
+2. Delete the Airflow worker & PostgreSQL statefulset (notice the option *--cascade=orphan*):
 
-        kubectl delete statefulsets.apps --cascade=false airflow-postgresql
-        kubectl delete statefulsets.apps --cascade=false airflow-worker
+        kubectl delete statefulsets.apps --cascade=orphan airflow-postgresql
+        kubectl delete statefulsets.apps --cascade=orphan airflow-worker
 
 3. Upgrade your release:
 
