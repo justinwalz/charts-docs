@@ -8,8 +8,6 @@ category: configuration
 weight: 40
 =end %>
 
-> NOTE: The Kubeapps frontend sets up a proxy to the Kubernetes API service, so when when exposing the Kubeapps service to a network external to the Kubernetes cluster (perhaps on an internal or public network), the Kubernetes API will also be exposed on that network. See the [issues section](https://github.com/kubeapps/kubeapps/issues/1111) for more details.
-
 ### LoadBalancer Service
 
 The simplest way to expose the Kubeapps Dashboard is to assign a LoadBalancer type to the Kubeapps frontend Service. For example, you can use the following parameter: frontend.service.type=LoadBalancer
@@ -22,7 +20,7 @@ $ kubectl get services --namespace kubeapps --watch
 
 ### Ingress
 
-This chart provides support for ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress](https://hub.kubeapps.com/charts/stable/nginx-ingress) or [traefik](https://hub.kubeapps.com/charts/stable/traefik) you can utilize the ingress controller to expose Kubeapps.
+This chart provides support for Ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress-controller](https://github.com/bitnami/charts/tree/main/bitnami/nginx-ingress-controller) or [contour](https://github.com/bitnami/charts/tree/main/bitnami/contour) you can utilize the ingress controller to serve your application.
 
 To enable ingress integration, please set ingress.enabled to *true*.
 
