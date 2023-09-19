@@ -11,9 +11,9 @@ highlight: 20
 
 > NOTE: To install a Helm chart repository, it is necessary to have [Helm previously installed and configured in your cluster](/<%=platform_path %>/faq/get-started/install-configure-helm).
 
-To start using any <%= variable :catalog_name, :platform %> Helm chart, it is necessary to first add the <%= variable :catalog_name, :platform %> Helm chart repository to Helm and then run the *helm install* command to deploy this chart. Follow these steps:
+To start using any <%= variable :catalog_name, :platform %> Helm chart, follow these steps:
 
-* Add the <%= variable :catalog_name, :platform %> repository to Helm with the following command:
+* Add the <%= variable :catalog_name, :platform %> repository to Helm so you can later on discover charts and available versions:
 
         $ helm repo add bitnami https://charts.bitnami.com/bitnami
 
@@ -33,5 +33,5 @@ To start using any <%= variable :catalog_name, :platform %> Helm chart, it is ne
 <% else %>
     > NOTE: Remember that MY-RELEASE and CHART are placeholders. Replace MY-RELEASE with the name you want to give to the deployment or add the *--generate-name* parameter to automatically generate a name, and replace CHART with the chart name. The name must start and end with a lower-case alphanumeric character and can only contain alphanumeric character, '-' or '.'.
 
-        $ helm install MY-RELEASE <%= variable :repository_name, :platform %>/CHART
+        $ helm install MY-RELEASE oci://registry-1.docker.io/bitnamicharts/CHART
 <% end %>

@@ -131,7 +131,7 @@ To run your commands against Kubernetes clusters, the *kubectl* CLI is needed. C
 
 <%= partial 'platforms/kubernetes/install_configure_helm.md.erb' %>
 
-Add the Bitnami repository to Helm with the following command:
+Add the Bitnami repository to Helm with the following command so you can later on discover charts and available versions:
 
     $ helm repo add bitnami https://charts.bitnami.com/bitnami
 <%#/ kubectl_helm %>
@@ -142,12 +142,9 @@ A Helm chart describes a specific version of an application, also known as a "re
 
 By executing the *helm install* command the application will be deployed on the Kubernetes cluster. You can install more than one chart across the cluster or clusters.
 
-> IMPORTANT: If you don't specify a release name, one will be automatically assigned.
-
 You can find an example of the installation of Redis using Helm charts below:
 
-        $ helm repo add bitnami https://charts.bitnami.com/bitnami
-        $ helm install redis bitnami/redis
+        $ helm install redis oci://registry-1.docker.io/bitnamicharts/redis
 
 > NOTE: Check the configurable parameters of the Redis chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/main/bitnami/redis#configuration).
 
@@ -157,8 +154,7 @@ Once you have the chart installed a "Notes" section will be shown at the bottom 
 
 > TIP: Unlike cloud platforms, Minikube doesn't support a load balancer so, if you're deploying the application on Minikube, use the command below instead:
 >
->      $ helm repo add bitnami https://charts.bitnami.com/bitnami
->      $ helm install redis bitnami/redis --set serviceType=NodePort
+>      $ helm install redis oci://registry-1.docker.io/bitnamicharts/redis --set serviceType=NodePort
 >
 > You should see output similar to that shown below as the chart is installed on Minikube.
 >
@@ -172,22 +168,19 @@ Find how to install MongoDB, Odoo or WordPress in the examples below:
 
 * To install on Minikube, run the following command:
 
-        $ helm repo add bitnami https://charts.bitnami.com/bitnami
-        $ helm install mongodb bitnami/mongodb --set serviceType=NodePort
+        $ helm install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb --set serviceType=NodePort
 
     > NOTE: Check the configurable parameters of the MongoDB chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/main/bitnami/mongodb#configuration).
 
 * To install on Minikube, run the following command:
 
-        $ helm repo add bitnami https://charts.bitnami.com/bitnami
-        $ helm install odoo bitnami/odoo --set serviceType=NodePort
+        $ helm install odoo oci://registry-1.docker.io/bitnamicharts/odoo --set serviceType=NodePort
 
     > NOTE: Check the configurable parameters of the Odoo chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/main/bitnami/odoo#configuration).
 
 * To install on Minikube, run the following command:
 
-        $ helm repo add bitnami https://charts.bitnami.com/bitnami
-        $ helm install wordpress bitnami/wordpress --set mariadb.image=bitnami/mariadb:10.1.21-r0 --set serviceType=NodePort
+        $ helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress --set mariadb.image=bitnami/mariadb:10.1.21-r0 --set serviceType=NodePort
 
     > NOTE: Check the configurable parameters of the WordPress chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/main/bitnami/wordpress#configuration).
 
