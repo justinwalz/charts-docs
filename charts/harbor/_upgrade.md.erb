@@ -77,7 +77,7 @@ This major release renames several values in this chart and adds missing feature
   * The new parameter `exposureType` allows deciding whether to expose Harbor using Ingress or an NGINX proxy
   * `service.type` doesn't accept `Ingress` as a valid value anymore. To configure traffic exposure through Ingress, set `exposureType` to `ingress`
   * `service.tls` map has been renamed to `nginx.tls`
-  * To configure TLS termination with Ingress, set the `ingress.core.tls` and `ingress.notary.tls` parameters
+  * To configure TLS termination with Ingress, set the `ingress.core.tls` parameter
   * `ingress` map is completely redefined
 * `xxxImage` parameters (e.g. `nginxImage`) have been renamed to `xxx.image` (e.g. `nginx.image`)
 * `xxx.replicas` parameters (e.g. `nginx.replicas`) have been renamed to `xxx.replicaCount` (e.g. `nginx.replicaCount`)
