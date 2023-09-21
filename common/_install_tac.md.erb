@@ -13,11 +13,9 @@ highlight: 20
 
 To start using any <%= variable :catalog_name, :platform %> Helm chart, it is necessary to first add the <%= variable :catalog_name, :platform %> Helm chart repository to Helm and then run the *helm install* command to deploy this chart. Follow these steps:
 
-* Add the <%= variable :catalog_name, :platform %> repository to Helm with the following command. Replace the USERNAME and PASSWORD placeholders with the correct username and token and the REPOSITORY placeholder with a reference to your <%= variable :catalog_name, :platform %> chart repository.
+    A Helm chart describes a specific version of a solution, also known as a "release". The "release" includes files with Kubernetes-needed resources and files that describe the installation, configuration, usage and license of a chart.
 
-        $ helm repo add <%= variable :repository_name, :platform %> REPOSITORY --username "USERNAME" --password "PASSWORD"
-
-    If using <%= variable :catalog_name, :platform %> for Tanzu Advanced, it is necessary to first  create a Kubernetes ImagePullSecret for *registry.pivotal.io/tac-for-tanzu-advanced* with the registry credentials, and then log in to the registry with the registry credentials. The commands are shown below. Replace the USERNAME and TOKEN placeholders with the correct registry credentials and the SECRET-NAME placeholder with a custom name for the secret.
+* If using <%= variable :catalog_name, :platform %> for Tanzu Advanced, it is necessary to first create a Kubernetes ImagePullSecret for *registry.pivotal.io/tac-for-tanzu-advanced* with the registry credentials, and then log in to the registry with the registry credentials. The commands are shown below. Replace the USERNAME and TOKEN placeholders with the correct registry credentials and the SECRET-NAME placeholder with a custom name for the secret.
 
         $ kubectl create secret docker-registry SECRET-NAME \
             --docker-server https://registry.pivotal.io/tac-for-tanzu-advanced \
@@ -25,8 +23,6 @@ To start using any <%= variable :catalog_name, :platform %> Helm chart, it is ne
             --docker-password "TOKEN"
         $ export HELM_EXPERIMENTAL_OCI=1
         $ helm registry login registry.pivotal.io/tac-for-tanzu-advanced/charts
-
-    A Helm chart describes a specific version of a solution, also known as a "release". The "release" includes files with Kubernetes-needed resources and files that describe the installation, configuration, usage and license of a chart.
 
 * Check that your Kubernetes cluster is running by executing the following command:
 

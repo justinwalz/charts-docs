@@ -11,13 +11,9 @@ highlight: 20
 
 > NOTE: To install a Helm chart repository, it is necessary to have [Helm previously installed and configured in your cluster](/<%=platform_path %>/faq/get-started/install-configure-helm).
 
-To start using any <%= variable :catalog_name, :platform %> Helm chart, follow these steps:
-
-* Add the <%= variable :catalog_name, :platform %> repository to Helm so you can later on discover charts and available versions:
-
-        $ helm repo add bitnami https://charts.bitnami.com/bitnami
-
     A Helm chart describes a specific version of a solution, also known as a "release". The "release" includes files with Kubernetes-needed resources and files that describe the installation, configuration, usage and license of a chart.
+
+To start using any <%= variable :catalog_name, :platform %> Helm chart, follow these steps:
 
 * Check that your Kubernetes cluster is running by executing the following command:
 
