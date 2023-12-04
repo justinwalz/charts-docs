@@ -42,9 +42,9 @@ To upgrade to *11.0.0* from *10.x*, it should be done reusing the PVC(s) used to
         export POSTGRESQL_PASSWORD=$(kubectl get secret --namespace default postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
         export POSTGRESQL_PVC=$(kubectl get pvc -l app.kubernetes.io/instance=postgresql,role=primary -o jsonpath="{.items[0].metadata.name}")
 
-2. Delete the PostgreSQL statefulset (notice the option *--cascade=false*) and secret:
+2. Delete the PostgreSQL statefulset (notice the option *--cascade=orphan*) and secret:
 
-        kubectl delete statefulsets.apps postgresql-postgresql --namespace default --cascade=false
+        kubectl delete statefulsets.apps postgresql-postgresql --namespace default --cascade=orphan
         kubectl delete secret postgresql --namespace default
 
 3. Upgrade your release using the same PostgreSQL version:
@@ -110,9 +110,9 @@ To upgrade to *10.0.0* from *9.x*, it should be done reusing the PVC(s) used to 
         export POSTGRESQL_PASSWORD=$(kubectl get secret --namespace default postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
         export POSTGRESQL_PVC=$(kubectl get pvc -l app.kubernetes.io/instance=postgresql,role=primary -o jsonpath="{.items[0].metadata.name}")
 
-2. Delete the PostgreSQL statefulset (notice the option *--cascade=false*):
+2. Delete the PostgreSQL statefulset (notice the option *--cascade=orphan*):
 
-        kubectl delete statefulsets.apps postgresql-postgresql --namespace default --cascade=false
+        kubectl delete statefulsets.apps postgresql-postgresql --namespace default --cascade=orphan
 
 3. Upgrade your release using the same PostgreSQL version:
 
@@ -150,9 +150,9 @@ To upgrade to *9.0.0* from *8.x*, it should be done reusing the PVC(s) used to h
         export POSTGRESQL_PASSWORD=$(kubectl get secret --namespace default postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
         export POSTGRESQL_PVC=$(kubectl get pvc -l app=postgresql,role=master -o jsonpath="{.items[0].metadata.name}")
 
-2. Delete the PostgreSQL statefulset (notice the option *--cascade=false*):
+2. Delete the PostgreSQL statefulset (notice the option *--cascade=orphan*):
 
-        kubectl delete statefulsets.apps postgresql-postgresql --namespace default --cascade=false
+        kubectl delete statefulsets.apps postgresql-postgresql --namespace default --cascade=orphan
 
 3. Upgrade your release using the same PostgreSQL version:
 
