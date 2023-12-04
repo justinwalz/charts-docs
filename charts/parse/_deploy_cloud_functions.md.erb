@@ -8,7 +8,7 @@ category: configuration
 weight: 50
 =end %>
 
-The [<%= variable :catalog_name, :platform %> Parse image](https://github.com/bitnami/bitnami-docker-parse) allows you to deploy your Cloud functions with Parse Cloud Code (a feature which allows running a piece of code in your Parse Server instead of the user's mobile devices). In order to add your custom scripts, they must be located inside the chart folder *files/cloud* so they can be consumed as a ConfigMap.
+The [<%= variable :catalog_name, :platform %> Parse image](https://github.com/bitnami/containers/tree/main/bitnami/parse) allows you to deploy your Cloud functions with Parse Cloud Code (a feature which allows running a piece of code in your Parse Server instead of the user's mobile devices). In order to add your custom scripts, they must be located inside the chart folder *files/cloud* so they can be consumed as a ConfigMap.
 
 Alternatively, you can specify custom scripts using the cloudCodeScripts parameter as dict.
 

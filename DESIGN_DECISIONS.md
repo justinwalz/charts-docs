@@ -20,12 +20,12 @@ Checking our support cases, we found that users found extremely difficult to deb
 
 ## 2021-02-25: Replace `bitnami/minideb` by `bitnami/bitnami-shell`
 
-**TL;DR:** [`bitnami/minideb`](https://github.com/bitnami/minideb) is not used on auxiliar containers (such as init containers or sidecar containers) anymore. [`bitnami/bitnami-shell`](https://github.com/bitnami/bitnami-docker-bitnami-shell) will be used from now on, instead.
+**TL;DR:** [`bitnami/minideb`](https://github.com/bitnami/minideb) is not used on auxiliar containers (such as init containers or sidecar containers) anymore. [`bitnami/bitnami-shell`](https://github.com/bitnami/containers/tree/main/bitnami/bitnami-shell) will be used from now on, instead.
 
 The [`bitnami/minideb`](https://github.com/bitnami/minideb) image started being a good fit for auxiliar containers (see [why use minideb](https://github.com/bitnami/minideb#why-use-minideb) section).
 However, several of these containers required non trivial packages to be present (e.g. `sysctl`). We can argue that many of these requirements would be a good-to-have. Nevertheless, we aim to keep [`bitnami/minideb`](https://github.com/bitnami/minideb) very light-weight and, more important, with a very small vulnerability surface.
 
-Hence, instead of adding this good-to-have delta to [`bitnami/minideb`](https://github.com/bitnami/minideb), we have developed [`bitnami/bitnami-shell`](https://github.com/bitnami/bitnami-docker-bitnami-shell). This allows us to keep `minideb` small and focused, which is a good quality to build other images on top, while our charts can use an enriched container with useful system packages or useful shell scripts.
+Hence, instead of adding this good-to-have delta to [`bitnami/minideb`](https://github.com/bitnami/minideb), we have developed [`bitnami/bitnami-shell`](https://github.com/bitnami/containers/tree/main/bitnami/bitnami-shell). This allows us to keep `minideb` small and focused, which is a good quality to build other images on top, while our charts can use an enriched container with useful system packages or useful shell scripts.
 
 ## 2021-01-20: Removal of _values-production.yaml_ files
 

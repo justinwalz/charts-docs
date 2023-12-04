@@ -32,8 +32,8 @@ Find more information about the process to create your own image in the [Develop
 
 This is done using two different init containers:
 
-* *clone-repository*: uses the [<%= variable :catalog_name, :platform %> Git image](https://github.com/bitnami/bitnami-docker-git) to download the repository.
-* *dotnet-publish*: uses the [<%= variable :catalog_name, :platform %> .Net SDK image](https://github.com/bitnami/bitnami-docker-dotnet-sdk) to build/publish the ASP.NET Core application.
+* *clone-repository*: uses the [<%= variable :catalog_name, :platform %> Git image](https://github.com/bitnami/containers/tree/main/bitnami/git) to download the repository.
+* *dotnet-publish*: uses the [<%= variable :catalog_name, :platform %> .Net SDK image](https://github.com/bitnami/containers/tree/main/bitnami/dotnet-sdk) to build/publish the ASP.NET Core application.
 
   To use this feature, set the *appFromExternalRepo.enabled* to *true* and set the repository and branch to use setting the *appFromExternalRepo.clone.repository* and *appFromExternalRepo.clone.revision* parameters. Then, specify the subfolder under the Git repository containing the ASP.NET Core application setting the *appFromExternalRepo.publish.subFolder* parameter. Finally, provide the start command to use setting the *appFromExternalRepo.startCommand*.
 

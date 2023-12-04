@@ -9,10 +9,10 @@ weight: 40
 highlight: 40
 =end %>
 
-There are two different ways to deploy a Redis Cluster, using the [Redis Helm chart](https://github.com/bitnami/charts/tree/master/bitnami/redis) or the [Redis Cluster Helm chart](https://github.com/bitnami/charts/tree/master/bitnami/redis-cluster). Both solutions provide a simply and reliable way to run Redis in a production enevironment. Keep reading to discover the differences between them and check which one better suits your needs.
+There are two different ways to deploy a Redis Cluster, using the [Redis Helm chart](https://github.com/bitnami/charts/tree/main/bitnami/redis) or the [Redis Cluster Helm chart](https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster). Both solutions provide a simply and reliable way to run Redis in a production enevironment. Keep reading to discover the differences between them and check which one better suits your needs.
 
 * The Redis Cluster Helm chart configures a cluster with six nodes by default with multiple writing points (three masters) and three slave nodes. The Redis Helm chart deploys three nodes by default in which there is only one writing point (one master) and two nodes for replicas (slaves).
-* The Redis Cluster Helm chart will deploy a Redis Cluster topology with [sharding](https://dzone.com/articles/redis-replication-vs-sharding) while the Redis Cluster will deploy a master-slave cluster using [Redis Sentinel](https://redis.io/topics/sentinel).
+* The Redis Cluster Helm chart will deploy a Redis Cluster topology with [sharding](https://dzone.com/articles/redis-replication-vs-sharding) while the Redis Helm chart will deploy a master-slave cluster using [Redis Sentinel](https://redis.io/topics/sentinel).
 * The Redis Cluster supports only one database - indicated if you have a big dataset - and Redis supports multiple databases.
 * The Redis Cluster client must support redirection, while the client used for Redis doesn't need it.
 * The topology of the Redis Cluster Helm chart allows users to access the cluster both externally and internally and you can both scale up and scale down the cluster in both accesses.

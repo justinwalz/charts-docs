@@ -8,16 +8,18 @@ category: administration
 weight: 20
 =end %>
 
-The postgresql-ha chart support two levels of TLS configuration:
+As depicted in this [postgres-ha solution diagram](https://docs.bitnami.com/kubernetes/infrastructure/postgresql-ha/get-started/compare-solutions/), the chart handles two main flows of traffic information:
 
-* Encrypt traffic between clients and Pgpool
-* Encrypt traffic between Pgpool and PostgreSQL backend nodes
+* Connections between end-clients and PgPool (sometimes referred to as _frontend_ connections).
+* Internal connections between PgPool and PostgreSQL nodes (sometimes referred to as _backend_ connections).
 
-### Encrypt traffic between clients and Pgpool
+The bitnami postgresql-ha chart allows configuring the securitization of both types of traffic using TLS.
+
+### Encrypt traffic between clients and Pgpool (frontend)
 
 TLS for end-client connections can be enabled in the chart by specifying the `pgpool.tls.*` parameters when installing a release. Below you can find detailed information about these parameters:
 
-* `pgpool.tls.enabled`: Enable TLS support. Defaults to `false`
+* `pgpool.tls.enabled`: Enable TLS support. Defaults to `false`.
 * `pgpool.tls.certificatesSecret`: Name of an existing secret that contains the certificates. No defaults.
 * `pgpool.tls.certFilename`: Certificate filename. No defaults.
 * `pgpool.tls.certKeyFilename`: Certificate key filename. No defaults.
@@ -30,6 +32,8 @@ For example:
     kubectl create secret generic pgpool-tls-secret --from-file=./cert.crt --from-file=./cert.key --from-file=./ca.crt
     ```
 
+> Note: Although certificate generation is out of the scope of this guide, bear in mind that PostgreSQL requires that server TLS certificates specify the actual DNS server name in the CN (Common Name) field.
+
 * Then, install the chart using the following parameters:
 
     ```console
@@ -41,8 +45,28 @@ For example:
 
 > Note: Certificates permissions: PgPool requires certain permissions on sensitive files (such as certificate keys) to start up. Due to an on-going [issue](https://github.com/kubernetes/kubernetes/issues/57923) regarding K8s permissions and the use of `containerSecurityContext.runAsUser`, an init container will adapt the permissions to ensure everything works as expected.
 
-### Encrypt traffic between Pgpool and PostgreSQL backend nodes
+#### Enable client certificate authentication
 
+When TLS is configured for _frontend_ connections, the server can be configured to authenticate clients by verifying their provided TLS certificate is valid and trusted. Hence, the client will not be sent a password prompt.
+
+You can enable this authentication feature additionally specifying the following parameter:
+
+* `postgresql.tls.certCAFilename`: CA Certificate filename. No defaults.
+
+    ```console
+    $ psql --host postgresql-ha-pgpool -d "dbname=XXXXX user=YYYYYY sslcert=client.crt sslkey=client.key sslmode=require"
+    psql (14.4)
+    SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+    Type "help" for help.
+
+    postgres=>
+    ```
+
+Clients using this method to authenticate will be required to provide a certificate with the CN (Common Name) field matching the requested database user name. Please, refer to [the official documentation](https://www.postgresql.org/docs/current/auth-cert.html) for further information.
+
+> Note: As with traditional password-based authentication, database users must exist in both PgPool and PostgreSQL nodes and have the correct privileges to connect to a database. You may use the `postgresql.initdbScripts` and `pgpool.customUsers` properties to create them in advance.
+
+### Encrypt traffic between Pgpool and PostgreSQL nodes (backend)
 
 TLS for backend connections can be enabled in the chart by specifying the `postgresql.tls.*` parameters while creating a release. Below you can find detailed information about these parameters:
 
@@ -70,4 +94,4 @@ For example:
 
 > Note: Certificates permissions: PostgreSQL requires certain permissions on sensitive files (such as certificate keys) to start up. Due to an on-going [issue](https://github.com/kubernetes/kubernetes/issues/57923) regarding K8s permissions and the use of `containerSecurityContext.runAsUser`, an init container will adapt the permissions to ensure everything works as expected.
 
-> Note: you can use the same secret for Pgpool and Postgresql TLS configuration.
+If you want to encrypt both _frontend_ and _backend_ traffics, you may use the same secret for Pgpool and PostgreSQL TLS configuration.

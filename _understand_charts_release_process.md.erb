@@ -50,23 +50,23 @@ Once the pull request or commit passes the automated review, one or more members
 
 Once the pull request successfully exits the review process, it is ready to be merged. At this point, there are two scenarios:
 
-* If the reviewer believes that the changes in the pull request should be tested in Bitnami's internal pipeline, the pull request is transferred to the internal CI/CD system. During this process, various verification, functional and upgrade tests are executed. If these tests are successfully passed, the pull request is automatically merged by the Bitnami bot into the repository's master branch. Container tags and dependencies are also updated automatically, as shown in the example below:
+* If the reviewer believes that the changes in the pull request should be tested in Bitnami's internal pipeline, the pull request is transferred to the internal CI/CD system. During this process, various verification, functional and upgrade tests are executed. If these tests are successfully passed, the pull request is automatically merged by the Bitnami bot into the repository's main branch. Container tags and dependencies are also updated automatically, as shown in the example below:
 
 <%= documentation_img '/images/img/platforms/kubernetes/charts-merge.png', 'Automated merge' %>
 
-* If the reviewer considers the changes in the pull request to be trivial, or if the pull request refers to a new feature that is disabled by default, or if there is no point in testing immediately, the pull request is merged into the repository's master branch.
+* If the reviewer considers the changes in the pull request to be trivial, or if the pull request refers to a new feature that is disabled by default, or if there is no point in testing immediately, the pull request is merged into the repository's main branch.
 
 > NOTE: Typically, the merge stage is instantaneous (when testing is not required) or can take a few hours (when testing is required).
 
-It is important to note that when the pull request is merged, it becomes part of the master branch of the Bitnami charts source code repository. However, the changes made by the pull request do not reflect immediately in Bitnami's public Helm chart repository, as there is still one further stage in the process.
+It is important to note that when the pull request is merged, it becomes part of the main branch of the Bitnami charts source code repository. However, the changes made by the pull request do not reflect immediately in Bitnami's public Helm chart repository, as there is still one further stage in the process.
 
 ### Stage 3: Publish
 
 The previous stages have focused on the Bitnami charts source code repository in GitHub, which hosts the source code for Bitnami's Helm charts. This source code repository is different from Bitnami's Helm chart repository, which hosts the final charts as compressed files and which is used by Helm when downloading charts.
 
-The third and final stage in Bitnami's Helm chart release process is to publish the updated chart in the Bitnami Helm charts repository using the latest versions in the source code repository. This process is executed automatically, every time Bitnami's internal CI/CD system detects a new chart version in the master branch.
+The third and final stage in Bitnami's Helm chart release process is to publish the updated chart in the Bitnami Helm charts repository using the latest versions in the source code repository. This process is executed automatically, every time Bitnami's internal CI/CD system detects a new chart version in the main branch.
 
-When a new version of a chart is detected in the master branch, the internal CI/CD system triggers a set of verification, functional, and upgrade tests. Those tests are executed with the chart installed in different Kubernetes clusters (using GKE, TKG, AKS, IKS and other Kubernetes providers). These tests are mandatory; a new chart version is published only when it successfully passes all the tests.
+When a new version of a chart is detected in the main branch, the internal CI/CD system triggers a set of verification, functional, and upgrade tests. Those tests are executed with the chart installed in different Kubernetes clusters (using GKE, TKG, AKS and other Kubernetes providers). These tests are mandatory; a new chart version is published only when it successfully passes all the tests.
 
 >NOTE: The test process is time-consuming because the tests are executed on multiple Kubernetes clusters and the number and type of tests varies depending on the application under review. For this reason, there is always a time lag between the merge stage (the addition of the code to the GitHub source code repository) and the publish stage (the appearance of the revised chart in the Helm charts repository). Depending on the current workload for the internal CI/CD system and the number of tests, and assuming no failures, it can take between 2-24 hours for the updated chart to be published.
 
@@ -76,4 +76,4 @@ The following diagram illustrates the entire release process:
 
 <%= documentation_img '/images/img/platforms/kubernetes/charts-release-process.png', 'Charts release process flowchart' %>
 
-> TIP: If you would like to contribute to Bitnami's chart repository, read the [repository contribution guidelines](https://github.com/bitnami/charts/blob/master/CONTRIBUTING.md) and [code of conduct](https://github.com/bitnami/charts/blob/master/CODE_OF_CONDUCT.md), or [learn more about the Bitnami release process and tests](https://docs.bitnami.com/tutorials/bitnami-best-practices-hardening-charts/#bitnami-release-process-and-tests).
+> TIP: If you would like to contribute to Bitnami's chart repository, read the [repository contribution guidelines](https://github.com/bitnami/charts/blob/main/CONTRIBUTING.md) and [code of conduct](https://github.com/bitnami/charts/blob/main/CODE_OF_CONDUCT.md), or [learn more about the Bitnami release process and tests](https://docs.bitnami.com/tutorials/bitnami-best-practices-hardening-charts/#bitnami-release-process-and-tests).

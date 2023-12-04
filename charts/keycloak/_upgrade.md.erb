@@ -9,6 +9,24 @@ weight: 20
 highlight: 20
 =end %>
 
+### To 10.0.0
+
+This major release updates Keycloak to its major version `19`. Please, refer to the official [Keycloak migration documentation](https://www.keycloak.org/docs/latest/upgrading/index.html#migrating-to-19-0-0) for a complete list of changes and further information.
+
+### To 9.0.0
+
+This major release updates Keycloak to its major version `18`. Please, refer to the official [Keycloak migration documentation](https://www.keycloak.org/docs/latest/upgrading/index.html#migrating-to-18-0-0) for a complete list of changes and further information.
+
+### To 8.0.0
+
+This major release updates Keycloak to its major version `17`. Among other features, this new version has deprecated WildFly in favor of Quarkus, which introduces breaking changes like:
+
+* Removal of `/auth` from the default context path.
+* Changes in the configuration and deployment of custom providers.
+* Significant changes in configuring Keycloak.
+
+Please, refer to the official [Keycloak migration documentation](https://www.keycloak.org/docs/latest/upgrading/index.html#migrating-to-17-0-0) and [Migrating to Quarkus distribution document](https://www.keycloak.org/migration/migrating-to-quarkus) for a complete list of changes and further information.
+
 ### To 7.0.0
 
 This major release updates the PostgreSQL subchart to its newest major *11.x.x*, which contain several changes in the supported values (check the [upgrade notes](https://docs.bitnami.com/kubernetes/infrastructure/postgresql/administration/upgrade/) to obtain more information).

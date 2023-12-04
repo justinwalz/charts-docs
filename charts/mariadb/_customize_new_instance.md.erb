@@ -9,7 +9,7 @@ weight: 20
 highlight: 20
 =end %>
 
-The [<%= variable :catalog_name, :platform %> MariaDB](https://github.com/bitnami/bitnami-docker-mariadb) image supports the use of custom scripts to initialize a fresh instance.
+The [<%= variable :catalog_name, :platform %> MariaDB](https://github.com/bitnami/containers/tree/main/bitnami/mariadb) image supports the use of custom scripts to initialize a fresh instance.
 
 Custom scripts may be specified using the *initdbScripts* parameter. Alternatively, an external ConfigMap may be created with all the initialization scripts and the ConfigMap passed to the chart via the *initdbScriptsConfigMap* parameter. Note that this will override the *initdbScripts* parameter.
 

@@ -103,7 +103,7 @@ Install Minikube in your local system, either by using a virtualization software
 
 * Open a new console window on the local system or open your VirtualBox.
 
-* To obtain the latest Minikube release, execute the following command depending on your OS. Replace the OS_DISTRIBUTION placeholder with the software distribution for your platform, which are "darwin" for OS X, "linux" for Linux and "windows" for Windows. 
+* To obtain the latest Minikube release, execute the following command depending on your OS. Replace the OS_DISTRIBUTION placeholder with the software distribution for your platform, which are "darwin" for OS X, "linux" for Linux and "windows" for Windows.
 
         $ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-OS_DISTRIBUTION-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 
@@ -131,34 +131,19 @@ To run your commands against Kubernetes clusters, the *kubectl* CLI is needed. C
 
 <%= partial 'platforms/kubernetes/install_configure_helm.md.erb' %>
 
-Add the Bitnami repository to Helm with the following command:
-
-    $ helm repo add bitnami https://charts.bitnami.com/bitnami
 <%#/ kubectl_helm %>
 
 ### Step 5: Install an application using a Helm Chart
 
 A Helm chart describes a specific version of an application, also known as a "release". The "release" includes files with Kubernetes-needed resources and files that describe the installation, configuration, usage and license of a chart.
 
-The steps below show how to run the following Bitnami applications using Helm charts:
-
-* [Redis](https://kubeapps.com/charts/bitnami/redis)
-* [MongoDB](https://kubeapps.com/charts/bitnami/mongodb)
-* [Odoo](https://kubeapps.com/charts/bitnami/odoo)
-* [WordPress](https://kubeapps.com/charts/bitnami/wordpress)
-
-These are just some concrete examples of application releases. [Find more Bitnami charts](https://kubeapps.com/charts/search?q=bitnami).
-
 By executing the *helm install* command the application will be deployed on the Kubernetes cluster. You can install more than one chart across the cluster or clusters.
-
-> IMPORTANT: If you don't specify a release name, one will be automatically assigned.
 
 You can find an example of the installation of Redis using Helm charts below:
 
-        $ helm repo add bitnami https://charts.bitnami.com/bitnami
-        $ helm install redis bitnami/redis
+        $ helm install redis oci://registry-1.docker.io/bitnamicharts/redis
 
-> NOTE: Check the configurable parameters of the Redis chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/master/bitnami/redis#configuration).
+> NOTE: Check the configurable parameters of the Redis chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/main/bitnami/redis#configuration).
 
 Once you have the chart installed a "Notes" section will be shown at the bottom of the installation information. It contains important instructions about how to obtain your application's IP address or credentials. Please check it carefully:
 
@@ -166,8 +151,7 @@ Once you have the chart installed a "Notes" section will be shown at the bottom 
 
 > TIP: Unlike cloud platforms, Minikube doesn't support a load balancer so, if you're deploying the application on Minikube, use the command below instead:
 >
->      $ helm repo add bitnami https://charts.bitnami.com/bitnami
->      $ helm install redis bitnami/redis --set serviceType=NodePort
+>      $ helm install redis oci://registry-1.docker.io/bitnamicharts/redis --set serviceType=NodePort
 >
 > You should see output similar to that shown below as the chart is installed on Minikube.
 >
@@ -181,24 +165,21 @@ Find how to install MongoDB, Odoo or WordPress in the examples below:
 
 * To install on Minikube, run the following command:
 
-        $ helm repo add bitnami https://charts.bitnami.com/bitnami
-        $ helm install mongodb bitnami/mongodb --set serviceType=NodePort 
+        $ helm install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb --set serviceType=NodePort
 
-    > NOTE: Check the configurable parameters of the MongoDB chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/master/bitnami/mongodb#configuration).
-
-* To install on Minikube, run the following command:
-
-        $ helm repo add bitnami https://charts.bitnami.com/bitnami
-        $ helm install odoo bitnami/odoo --set serviceType=NodePort
-
-    > NOTE: Check the configurable parameters of the Odoo chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/master/bitnami/odoo#configuration).
+    > NOTE: Check the configurable parameters of the MongoDB chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/main/bitnami/mongodb#configuration).
 
 * To install on Minikube, run the following command:
 
-        $ helm repo add bitnami https://charts.bitnami.com/bitnami
-        $ helm install wordpress bitnami/wordpress --set mariadb.image=bitnami/mariadb:10.1.21-r0 --set serviceType=NodePort
+        $ helm install odoo oci://registry-1.docker.io/bitnamicharts/odoo --set serviceType=NodePort
 
-    > NOTE: Check the configurable parameters of the WordPress chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/master/bitnami/wordpress#configuration).
+    > NOTE: Check the configurable parameters of the Odoo chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/main/bitnami/odoo#configuration).
+
+* To install on Minikube, run the following command:
+
+        $ helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress --set mariadb.image=bitnami/mariadb:10.1.21-r0 --set serviceType=NodePort
+
+    > NOTE: Check the configurable parameters of the WordPress chart and their default values at the [GitHub repository](https://github.com/bitnami/charts/tree/main/bitnami/wordpress#configuration).
 
 Now, you can manage your deployments from the Kubernetes Dashboard. Follow the instructions below to access the Web user interface.
 
@@ -310,7 +291,7 @@ To learn more about the topics discussed in this guide, use the links below:
 
 * [Production-ready Kubernetes applications by Bitnami](https://bitnami.com/kubernetes)
 * [Intro to deploying your favourite apps on Kubernetes](https://www.youtube.com/watch?v=bd8mXpFLUig)
-* [Kubeapps](http://kubeapps.com/)
+* [Kubeapps](https://kubeapps.dev/)
 * [Kubernetes](https://kubernetes.io/)
 * [Helm](https://helm.sh/)
 * [Google Kubernetes Engine](https://cloud.google.com/container-engine/)

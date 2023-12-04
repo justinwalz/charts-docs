@@ -9,7 +9,7 @@ weight: 40
 highlight: 40
 =end %>
 
-The [<%= variable :catalog_name, :platform %> Apache Cassandra image](https://github.com/bitnami/bitnami-docker-cassandra) image supports the use of custom scripts to initialize a fresh instance. This may be done by creating a Kubernetes ConfigMap that includes the necessary *sh* or *cql* scripts and passing this ConfigMap to the chart via the *initDBConfigMap* parameter.
+The [<%= variable :catalog_name, :platform %> Apache Cassandra image](https://github.com/bitnami/containers/tree/main/bitnami/cassandra) image supports the use of custom scripts to initialize a fresh instance. This may be done by creating a Kubernetes ConfigMap that includes the necessary *sh* or *cql* scripts and passing this ConfigMap to the chart via the *initDBConfigMap* parameter.
 
 The scripts are mounted in the */docker-entrypoint.initdb* directory.
 

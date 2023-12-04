@@ -28,9 +28,9 @@ Relying on Helm to generate random credentials is the root of many issues when d
 
 Here is an example illustrating the issue:
 
-* Install a chart that uses a stateful application, such as the [Bitnami PostgreSQL chart](https://github.com/bitnami/charts/tree/master/bitnami/postgresql):
+* Install a chart that uses a stateful application, such as the [Bitnami PostgreSQL chart](https://github.com/bitnami/charts/tree/main/bitnami/postgresql):
 
-        $ helm install MY-RELEASE <%= variable :repository_name, :platform %>/postgresql
+        $ helm install MY-RELEASE oci://registry-1.docker.io/bitnamicharts/postgresql
 
 * Since no credentials were specified and no existing Secrets are being reused, a random alphanumeric password is generated for the *postgres* (admin) user of the database. This password is also used by readiness and liveness probes on PostgreSQL pods. Obtain the generated password using the commands below:
 
@@ -46,7 +46,7 @@ Here is an example illustrating the issue:
 
 * Upgrade the chart release:
 
-        $ helm upgrade MY-RELEASE <%= variable :repository_name, :platform %>/postgresql
+        $ helm upgrade MY-RELEASE oci://registry-1.docker.io/bitnamicharts/postgresql
 
 * Obtain the password again. You will find that a new password has been generated, as shown in the example below:
 
@@ -89,7 +89,7 @@ This issue is resolved by rolling back the chart release. Continuing with the pr
 * Obtain the original credentials and upgrade the release by passing the original credentials to the upgrade process:
 
         $ export POSTGRESQL_PASSWORD=$(kubectl get secret --namespace default MY-RELEASE-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
-        $ helm upgrade MY-RELEASE <%= variable :repository_name, :platform %>/postgresql --set postgresqlPassword=$POSTGRESQL_PASSWORD
+        $ helm upgrade MY-RELEASE oci://registry-1.docker.io/bitnamicharts/postgresql --set postgresqlPassword=$POSTGRESQL_PASSWORD
 
 * Check the history again:
 
@@ -118,9 +118,9 @@ If a Helm Chart includes a Statefulset which uses VolumeClaimTemplates to genera
 
 Reproduce the issue by following the steps below:
 
-* Install a chart that uses a Statefulset such as the [Bitnami MariaDB chart](https://github.com/bitnami/charts/tree/master/bitnami/mariadb) and wait for the release to be marked as successful:
+* Install a chart that uses a Statefulset such as the [Bitnami MariaDB chart](https://github.com/bitnami/charts/tree/main/bitnami/mariadb) and wait for the release to be marked as successful:
 
-        $ helm install MY-RELEASE <%= variable :repository_name, :platform %>/mariadb --wait
+        $ helm install MY-RELEASE oci://registry-1.docker.io/bitnamicharts/mariadb --wait
 
 * Uninstall the release:
 
@@ -136,7 +136,7 @@ This can cause issues when reinstalling charts that reuse the release name. For 
 
 * Install the Bitnami MariaDB chart again using the same release name:
 
-        $ helm install MY-RELEASE <%= variable :repository_name, :platform %>/mariadb
+        $ helm install MY-RELEASE oci://registry-1.docker.io/bitnamicharts/mariadb
 
 * Helm does not complain since the previous release was uninstalled and therefore no name conflict is detected. However, if the PVCs are listed again, it can be seen that the previous PVCs are being reused:
 
@@ -150,7 +150,7 @@ This is problematic for the same reasons as those listed in [the section related
 
 This issue appears when installing a new release. In other words, it happens before any data is added to the application. Therefore, it can be solved by simply uninstalling the chart, removing the existing PVCs and installing the chart again:
 
-    $ helm uninstall MY-RELEASE <%= variable :repository_name, :platform %>/mariadb
+    $ helm uninstall MY-RELEASE
     $ kubectl delete pvc data-MY-RELEASE-mariadb-0
 
 #### Permission errors when enabling persistence
@@ -163,9 +163,9 @@ Our [guide on container hardening best practices](https://docs.bitnami.com/tutor
 
 The example below analyzes a common issue faced by Bitnami users in this context:
 
-* Install a chart that uses a non-root container, such as the [Bitnami MongoDB chart](https://github.com/bitnami/charts/tree/master/bitnami/mongodb):
+* Install a chart that uses a non-root container, such as the [Bitnami MongoDB chart](https://github.com/bitnami/charts/tree/main/bitnami/mongodb):
 
-        $ helm install MY-RELEASE <%= variable :repository_name, :platform %>/mongodb
+        $ helm install MY-RELEASE oci://registry-1.docker.io/bitnamicharts/mongodb
 
 * A CrashLoopBackOff error may occur:
 
@@ -178,8 +178,8 @@ The example below analyzes a common issue faced by Bitnami users in this context
         $ kubectl logs MY-RELEASE-mongodb-58f6f48f87-vvc7m
         mongodb 08:56:27.10
         mongodb 08:56:27.11 Welcome to the Bitnami mongodb container
-        mongodb 08:56:27.11 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-mongodb
-        mongodb 08:56:27.12 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-mongodb/issues
+        mongodb 08:56:27.12 Subscribe to project updates by watching https://github.com/bitnami/containers
+        mongodb 08:56:27.12 Submit issues and feature requests at https://github.com/bitnami/containers/issues
         mongodb 08:56:27.12
         mongodb 08:56:27.12 INFO  ==> ** Starting MongoDB setup **
         mongodb 08:56:27.14 INFO  ==> Validating settings in MONGODB_* env vars...
@@ -215,7 +215,7 @@ To address this challenge, Bitnami charts also support, as an alternative mechan
 
 * Upgrade the chart release enabling the *initContainer* that adapts the permissions:
 
-        $ helm upgrade MY-RELEASE <%= variable :repository_name, :platform %>/mongodb --set volumePermissions.enabled=true
+        $ helm upgrade MY-RELEASE oci://registry-1.docker.io/bitnamicharts/mongodb --set volumePermissions.enabled=true
 
 * List the pods again to confirm that the CrashLoopBackOff error no longer occurs:
 

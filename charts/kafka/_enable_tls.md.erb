@@ -35,7 +35,8 @@ When using your own TLS certificates, the following certificates are required de
 
 To configure TLS authentication with JKS format on a Kafka cluster with two Kafka brokers, use the command below to create the secret containing the TLS certificates:
 
-    $ kubectl create secret generic kafka-tls --from-file=./kafka.truststore.jks --from-file=./kafka-0.keystore.jks --from-file=./kafka-1.keystore.jks
+    $ kubectl create secret generic kafka-tls-0 --from-file=./kafka.truststore.jks --from-file=kafka.keystore.jks=./kafka.keystore-0.jks
+    $ kubectl create secret generic kafka-tls-1 --from-file=./kafka.truststore.jks --from-file=kafka.keystore.jks=./kafka.keystore-1.jks
 
 > NOTE: The command above assumes you already created the truststore and keystore files. A [script to help with JKS file generation](https://raw.githubusercontent.com/confluentinc/confluent-platform-security-tools/master/kafka-generate-ssl.sh) is also available.
 
@@ -45,9 +46,30 @@ Then, deploy the chart with inter-broker TLS authentication using the following 
 replicaCount=2
 auth.interBrokerProtocol=tls
 auth.tls.type=jks
-auth.tls.existingSecret=kafka-tls
+auth.tls.existingSecret[0]=kafka-tls-0
+auth.tls.existingSecret[1]=kafka-tls-1
 auth.tls.password=some-password
 ~~~
+
+The Helm command line with parameters and values would look like:
+
+~~~
+helm install --set replicaCount=2 --set auth.interBrokerProtocol=tls --set auth.tls.type=jks --set auth.tls.existingSecrets[0]=kafka-tls-0 --set auth.tls.existingSecrets[1]=kafka-tls-1 --set auth.tls.password=some-password kafka-bitnami bitnami/kafka
+~~~
+
+##### YAML file - in case you are using a YAML file to store your parameters and values
+In your *YAML* file, set the values using the following parameters:
+~~~
+replicaCount=2
+auth:
+  interBrokerProtocol: tls
+  tls:
+    type: jks
+    existingSecrets: ["kafka-tls-0", "kafka-tls-1"]
+    password: some-password
+~~~
+
+> Note: The parameter *existingSecrets* contains an array of String which represent each secret's name. More information about each parameter can be found by accessing https://github.com/bitnami/charts/tree/main/bitnami/kafka
 
 #### Use PEM format
 

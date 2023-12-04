@@ -8,7 +8,7 @@ category: administration
 weight: 20
 =end %>
 
-The [<%= variable :catalog_name, :platform %> PostgreSQL](https://github.com/bitnami/bitnami-docker-postgresql) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder *files/docker-entrypoint-initdb.d* so they can be consumed as a ConfigMap.
+The [<%= variable :catalog_name, :platform %> PostgreSQL](https://github.com/bitnami/containers/tree/main/bitnami/postgresql) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder *files/docker-entrypoint-initdb.d* so they can be consumed as a ConfigMap.
 
 Alternatively, you can specify custom scripts using the initdbScripts parameter as dict.
 

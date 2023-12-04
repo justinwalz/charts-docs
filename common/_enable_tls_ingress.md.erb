@@ -1,6 +1,6 @@
 <%
 =begin
-apps: aspnet-core, argo-cd, argo-workflows, concourse, consul, discourse, dokuwiki, drupal, geode, ghost, jasperreports, jenkins, joomla, jupyterhub, keycloak, kong, kubeapps, logstash, magento, mediawiki, minio, moodle, nats, nginx, odoo, opencart, orangehrm, osclass, owncloud, phabricator, phpbb, phpmyadmin, prestashop, rabbitmq, redmine, sealed-secrets, solr, sonarqube, spark, suitecrm, spring-cloud-dataflow, testlink, thanos, tomcat, wildfly, wordpress
+apps: appsmith, aspnet-core, argo-cd, argo-workflows, clickhouse, concourse, consul, discourse, dokuwiki, drupal, ghost, jasperreports, jenkins, joomla, jupyterhub, keycloak, kong, kubeapps, logstash, mastodon, mediawiki, minio, moodle, nats, nginx, odoo, opencart, osclass, phpbb, phpmyadmin, prestashop, rabbitmq, redmine, sealed-secrets, solr, sonarqube, spark, spring-cloud-dataflow, suitecrm, supabase, thanos, tomcat, wildfly, wordpress
 platforms: kubernetes, tanzu-application-catalog
 id: enable_tls_ingress
 title: Enable TLS termination with an Ingress controller
@@ -14,7 +14,7 @@ This chart facilitates the creation of TLS secrets for use with the Ingress cont
 * Generate certificate secrets based on chart parameters.
 * Enable externally generated certificates.
 * Manage application certificates via an external service (like [cert-manager](https://github.com/jetstack/cert-manager/)).
-<% if %w(argo-cd jenkins geode ghost kubeapps odoo rabbitmq redmine sealed-secrets sonarqube spring-cloud-dataflow).include? current.app %>
+<% if %w(appsmith argo-cd clickhouse jenkins ghost kubeapps odoo rabbitmq redmine sealed-secrets sonarqube spring-cloud-dataflow).include? current.app %>
 * Create self-signed certificates within the chart.
 <% end %>
 
@@ -45,6 +45,6 @@ wrj2wDbCDCFmfqnSJ+dKI3vFLlEz44sAV8jX/kd4Y6ZTQhlLbYc=
 * If using Helm to manage the certificates based on the parameters, copy these values into the *certificate* and *key* values for a given *\*.ingress.secrets* entry.
 * If managing TLS secrets separately, it is necessary to create a TLS secret with name *INGRESS_HOSTNAME-tls* (where INGRESS_HOSTNAME is a placeholder to be replaced with the hostname you set using the *\*.ingress.hostname* parameter).
 * If your cluster has a [cert-manager](https://github.com/jetstack/cert-manager) add-on to automate the management and issuance of TLS certificates, add to *\*.ingress.annotations* the [corresponding ones](https://cert-manager.io/docs/usage/ingress/#supported-annotations) for cert-manager.
-<% if %w(argo-cd jenkins geode ghost kubeapps odoo rabbitmq redmine sealed-secrets sonarqube spring-cloud-dataflow).include? current.app %>
+<% if %w(argo-cd jenkins ghost kubeapps odoo rabbitmq redmine sealed-secrets sonarqube spring-cloud-dataflow).include? current.app %>
 * If using self-signed certificates created by Helm, set both *\*.ingress.tls* and *\*.ingress.selfSigned* to *true*.
 <% end %>

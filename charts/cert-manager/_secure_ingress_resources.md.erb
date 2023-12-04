@@ -13,7 +13,7 @@ Once you configure an Issuer for Cert Manager (either [a Self-Signed Issuer](../
 
 There are two options to expose your application through an Ingress Controller using Cert Manager to manage the TLS certificates:
 
-* Deploy another Helm chart which supports exposing the application through an Ingress controller. For instance, use the [<%= variable :catalog_name, :platform %> Helm Chart for WordPress](https://github.com/bitnami/charts/tree/master/bitnami/wordpress) and [configure Ingress for WordPress](/<%= platform_path %>/apps/wordpress/configuration/configure-ingress/). To enable the integration with CertManager, add the annotations below to the *ingress.annotations* parameter:
+* Deploy another Helm chart which supports exposing the application through an Ingress controller. For instance, use the [<%= variable :catalog_name, :platform %> Helm Chart for WordPress](https://github.com/bitnami/charts/tree/main/bitnami/wordpress) and [configure Ingress for WordPress](/<%= platform_path %>/apps/wordpress/configuration/configure-ingress/). To enable the integration with CertManager, add the annotations below to the *ingress.annotations* parameter:
 
    ~~~
    # Set up your ingress.class below (in this example, we are using nginx ingress controller)
