@@ -77,7 +77,7 @@ This major release renames several values in this chart and adds missing feature
   * The new parameter `exposureType` allows deciding whether to expose Harbor using Ingress or an NGINX proxy
   * `service.type` doesn't accept `Ingress` as a valid value anymore. To configure traffic exposure through Ingress, set `exposureType` to `ingress`
   * `service.tls` map has been renamed to `nginx.tls`
-  * To configure TLS termination with Ingress, set the `ingress.core.tls` and `ingress.notary.tls` parameters
+  * To configure TLS termination with Ingress, set the `ingress.core.tls` parameter
   * `ingress` map is completely redefined
 * `xxxImage` parameters (e.g. `nginxImage`) have been renamed to `xxx.image` (e.g. `nginx.image`)
 * `xxx.replicas` parameters (e.g. `nginx.replicas`) have been renamed to `xxx.replicaCount` (e.g. `nginx.replicaCount`)
@@ -142,11 +142,11 @@ To upgrade to *12.x.x* from *11.x*, it should be done reusing the PVC(s) used to
 
 ### To 11.0.0
 
-This major update the Redis&trade; subchart to its newest major, 15.0.0. [Here](https://github.com/bitnami/charts/tree/master/bitnami/redis#to-1500) you can find more info about the specific changes.
+This major update the Redis&trade; subchart to its newest major, 15.0.0. [Here](https://github.com/bitnami/charts/tree/main/bitnami/redis#to-1500) you can find more info about the specific changes.
 
 ### To 10.0.0
 
-This major updates the Redis&trade; subchart to it newest major, 14.0.0, which contains breaking changes. For more information on this subchart's major and the steps needed to migrate your data from your previous release, please refer to [Redis&trade; upgrade notes.](https://github.com/bitnami/charts/tree/master/bitnami/redis#to-1400).
+This major updates the Redis&trade; subchart to it newest major, 14.0.0, which contains breaking changes. For more information on this subchart's major and the steps needed to migrate your data from your previous release, please refer to [Redis&trade; upgrade notes.](https://github.com/bitnami/charts/tree/main/bitnami/redis#to-1400).
 
 ### To 9.7.0
 
@@ -189,9 +189,9 @@ To upgrade to *9.0.0* from *8.x*, it should be done reusing the PVC(s) used to h
         export POSTGRESQL_PASSWORD=$(kubectl get secret --namespace default harbor-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
         export POSTGRESQL_PVC=$(kubectl get pvc -l app.kubernetes.io/instance=harbor,app.kubernetes.io/name=postgresql,role=master -o jsonpath="{.items[0].metadata.name}")
 
-2. Delete the PostgreSQL statefulset (notice the option *--cascade=false*)
+2. Delete the PostgreSQL statefulset (notice the option *--cascade=orphan*)
 
-        kubectl delete statefulsets.apps --cascade=false harbor-postgresql
+        kubectl delete statefulsets.apps --cascade=orphan harbor-postgresql
 
 3. Upgrade your release:
 

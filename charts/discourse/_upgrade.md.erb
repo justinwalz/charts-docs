@@ -64,9 +64,9 @@ To upgrade to *6.0.0* from *5.x*, it should be done reusing the PVC(s) used to h
         export REDIS_PASSWORD=$(kubectl get secret --namespace default discourse-redis -o jsonpath="{.data.redis-password}" | base64 --decode)
         export POSTGRESQL_PVC=$(kubectl get pvc -l app.kubernetes.io/instance=discourse,app.kubernetes.io/name=postgresql,role=primary -o jsonpath="{.items[0].metadata.name}")
 
-2. Delete the PostgreSQL statefulset (notice the option *--cascade=false*) and secret:
+2. Delete the PostgreSQL statefulset (notice the option *--cascade=orphan*) and secret:
 
-        kubectl delete statefulsets.apps --cascade=false discourse-postgresql
+        kubectl delete statefulsets.apps --cascade=orphan discourse-postgresql
         kubectl delete secret postgresql --namespace default
 
 3. Upgrade your release using the same PostgreSQL version:
@@ -87,7 +87,7 @@ To upgrade to *6.0.0* from *5.x*, it should be done reusing the PVC(s) used to h
 
 ### To 5.0.0
 
-This major update the Redis&trade; subchart to its newest major, 15.0.0. For more information on this subchart's major and the steps needed to migrate your data from your previous release, please refer to [Redis&trade; upgrade notes.](https://github.com/bitnami/charts/tree/master/bitnami/redis#to-1500).
+This major update the Redis&trade; subchart to its newest major, 15.0.0. For more information on this subchart's major and the steps needed to migrate your data from your previous release, please refer to [Redis&trade; upgrade notes.](https://github.com/bitnami/charts/tree/main/bitnami/redis#to-1500).
 
 ### To 4.0.0
 
@@ -112,7 +112,7 @@ Full compatibility is not guaranteed due to the amount of involved changes, howe
 
 ### To 3.0.0
 
-This major updates the Redis&trade; subchart to it newest major, 14.0.0, which contains breaking changes. For more information on this subchart's major and the steps needed to migrate your data from your previous release, please refer to [Redis&trade; upgrade notes.](https://github.com/bitnami/charts/tree/master/bitnami/redis#to-1400).
+This major updates the Redis&trade; subchart to it newest major, 14.0.0, which contains breaking changes. For more information on this subchart's major and the steps needed to migrate your data from your previous release, please refer to [Redis&trade; upgrade notes.](https://github.com/bitnami/charts/tree/main/bitnami/redis#to-1400).
 
 ### To 2.0.0
 
@@ -151,10 +151,10 @@ To upgrade to *2.0.0* from *1.x*, it should be done reusing the PVC(s) used to h
         export REDIS_PASSWORD=$(kubectl get secret --namespace default discourse-redis -o jsonpath="{.data.redis-password}" | base64 --decode)
         export POSTGRESQL_PVC=$(kubectl get pvc -l app.kubernetes.io/instance=discourse,app.kubernetes.io/name=postgresql,role=primary -o jsonpath="{.items[0].metadata.name}")
 
-2. Delete the Airflow worker & PostgreSQL statefulset (notice the option *--cascade=false*):
+2. Delete the Airflow worker & PostgreSQL statefulset (notice the option *--cascade=orphan*):
 
-        kubectl delete statefulsets.apps --cascade=false discourse-postgresql
-        kubectl delete statefulsets.apps --cascade=false discourse-worker
+        kubectl delete statefulsets.apps --cascade=orphan discourse-postgresql
+        kubectl delete statefulsets.apps --cascade=orphan discourse-worker
 
 3. Upgrade your release:
 

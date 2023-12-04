@@ -28,9 +28,9 @@ This major release renames several values in this chart and adds missing feature
         export POSTGRESQL_PASSWORD=$(kubectl get secret --namespace default concourse-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
         export POSTGRESQL_PVC=$(kubectl get pvc -l app.kubernetes.io/instance=concourse,app.kubernetes.io/name=postgresql,role=primary -o jsonpath="{.items[0].metadata.name}")
 
-2. Delete the PostgreSQL statefulset (notice the option *--cascade=false*) and secret:
+2. Delete the PostgreSQL statefulset (notice the option *--cascade=orphan*) and secret:
 
-        kubectl delete statefulsets.apps --cascade=false concourse-postgresql
+        kubectl delete statefulsets.apps --cascade=orphan concourse-postgresql
         kubectl delete secret postgresql --namespace default
 
 3. Upgrade your release using the same PostgreSQL version:

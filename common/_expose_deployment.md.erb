@@ -11,7 +11,7 @@ highlight: 40
 
 The service(s) created by the deployment can be exposed within or outside the cluster using any of the following approaches:
 
-<% if %w(airflow apache argo-cd argo-workflows aspnet-core consul discourse dokuwiki drupal ejbca fluentd geode ghost grafana grafana-operator harbor influxdb jasperreports jenkins joomla jupyterhub keycloak kibana kong kubeapps logstash magento mediawiki moodle minio nats nginx node odoo opencart orangehrm osclass owncloud parse phabricator phpbb phpmyadmin prestashop rabbitmq redmine sealed-secrets solr sonarqube spark spring-cloud-dataflow suitecrm testlink tomcat wildfly wordpress).include? current.app %>
+<% if %w(airflow apache argo-cd argo-workflows aspnet-core consul discourse dokuwiki drupal ejbca fluentd ghost grafana grafana-operator harbor influxdb jasperreports jenkins joomla jupyterhub keycloak kibana kong kubeapps logstash mediawiki moodle minio nats nginx odoo opencart osclass parse phpbb phpmyadmin prestashop rabbitmq redmine sealed-secrets solr sonarqube spark spring-cloud-dataflow suitecrm tomcat wildfly wordpress).include? current.app %>
 * Ingress: This requires an Ingress controller to be installed in the Kubernetes cluster. Set *\*.ingress.enabled=true* to expose the corresponding service(s) through Ingress. <% if there_is "../../configuration/configure-ingress" %>[Learn more about configuring and using Ingress](../../configuration/configure-ingress).<% end %>
 
 <% end %>

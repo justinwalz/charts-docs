@@ -23,6 +23,6 @@ You can also bootstrap MinIO(R) server in distributed mode in several zones, and
     statefulset.zones=2
     statefulset.drivesPerNode=2
 
-> NOTE: The total number of drives should be multiple of 4 to guarantee erasure coding. Please set a combination of nodes, and drives per node that match this condition.
+> NOTE: The total number of drives should be greater than 4 to guarantee erasure coding. Please set a combination of nodes, and drives per node that match this condition.
 
 

@@ -17,4 +17,4 @@ In order to enable LDAP authentication, you must:
 * Use the *ldapDaemon.nginxServerBlock* property to provide an additional server configuration block that will make NGINX a proxy. Alternatively, you can provide this configuration using an external Secret and the property *ldapDaemon.existingNginxServerBlockSecret*.
 * In the same server block, specify the LDAP server connection details. Alternatively, you can declare them using the property *ldapDaemon.ldapConfig*.
 
-For an example of the configuration, see the [NGINX Helm chart's *values.yaml* file](https://github.com/bitnami/charts/blob/master/bitnami/nginx/values.yaml), or refer to our article on [controlling access to HTTP resources on Kubernetes with NGINX and LDAP](https://docs.bitnami.com/tutorials/control-http-resources-nginx-ldap-kubernetes/).
+For an example of the configuration, see the [NGINX Helm chart's *values.yaml* file](https://github.com/bitnami/charts/blob/main/bitnami/nginx/values.yaml), or refer to our article on [controlling access to HTTP resources on Kubernetes with NGINX and LDAP](https://docs.bitnami.com/tutorials/control-http-resources-nginx-ldap-kubernetes/).

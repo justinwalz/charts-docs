@@ -1,6 +1,6 @@
 <%
 =begin
-apps: airflow,apache,argo-cd,argo-workflows,aspnet-core,consul,concourse,discourse,dokuwiki,drupal,ejbca,fluentd,geode,ghost,grafana,grafana-operator,harbor,influxdb,jasperreports,jenkins,joomla,jupyterhub,keycloak,kibana,kong,kubeapps,logstash,magento,mediawiki,moodle,minio,nats,nginx,node,odoo,opencart,orangehrm,osclass,owncloud,parse,phabricator,phpbb,phpmyadmin,prestashop,rabbitmq,redmine,sealed-secrets,solr,sonarqube,spark,spring-cloud-dataflow,suitecrm,testlink,tomcat,wildfly,wordpress
+apps: airflow,apache,appsmith,argo-cd,argo-workflows,aspnet-core,consul,concourse,discourse,dokuwiki,drupal,ejbca,fluentd,ghost,grafana,grafana-operator,harbor,influxdb,jasperreports,jenkins,joomla,jupyterhub,keycloak,kibana,kong,kubeapps,logstash,mastodon,mediawiki,moodle,minio,nats,nginx,node,odoo,opencart,osclass,parse,phpbb,phpmyadmin,prestashop,rabbitmq,redmine,sealed-secrets,solr,sonarqube,spark,spring-cloud-dataflow,suitecrm,supabase,tomcat,wildfly,wordpress
 platforms: kubernetes, tanzu-application-catalog
 id: configure_ingress
 title: Configure and use Ingress
@@ -9,7 +9,7 @@ weight: 40
 highlight: 40
 =end %>
 
-This chart supports Ingress resources. If an Ingress controller, such as [nginx-ingress](https://hub.kubeapps.com/charts/stable/nginx-ingress) or [traefik](https://hub.kubeapps.com/charts/stable/traefik), is installed in the cluster, that Ingress controller can be used to serve the application.
+This chart provides support for Ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress-controller](https://github.com/bitnami/charts/tree/main/bitnami/nginx-ingress-controller) or [contour](https://github.com/bitnami/charts/tree/main/bitnami/contour) you can utilize the ingress controller to serve your application.
 
 To enable Ingress integration, set the *\*.ingress.enabled* parameter to *true*.
 

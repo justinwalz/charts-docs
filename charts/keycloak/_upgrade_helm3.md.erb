@@ -34,9 +34,9 @@ highlight: 20
         $ export POSTGRESQL_PASSWORD=$(kubectl get secret --namespace default keycloak-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
         $ export POSTGRESQL_PVC=$(kubectl get pvc -l app.kubernetes.io/instance=keycloak,app.kubernetes.io/name=postgresql,role=master -o jsonpath="{.items[0].metadata.name}")
 
-  * Delete the PostgreSQL StatefulSet. Notice the usage of the option *--cascade=false*:
+  * Delete the PostgreSQL StatefulSet. Notice the usage of the option *--cascade=orphan*:
 
-        $ kubectl delete statefulsets.apps keycloak-postgresql --cascade=false
+        $ kubectl delete statefulsets.apps keycloak-postgresql --cascade=orphan
 
   * Upgrade the chart release
 
